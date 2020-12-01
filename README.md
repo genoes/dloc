@@ -8,6 +8,7 @@
 * Python 3.x
 * Pandas
 
+------------
 
 **Steps**
 1. Open Terminal and run ```curl``` command for solr metadata export csv:
