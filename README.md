@@ -4,7 +4,9 @@
 **readme work in progress**
 
 ------------
-
+### Requirements
+* Python 3.x
+* Pandas
 
 
 **Steps**
