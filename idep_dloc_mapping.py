@@ -1,4 +1,4 @@
-# importing pandas module 
+# import modules
 import pandas as pd
 import calendar
 
@@ -8,7 +8,7 @@ data = input('\n''Enter absolute path to CSV: ').strip(' ')
 df = pd.read_csv(data, header = 0)
 
 
- #Add DLOC columns and values
+# add DLOC columns and consistent values
 df['Month'] = ('')
 df['Day'] = ('')
 df['Related URL'] = ('https://idep.library.ucla.edu/search#!/document/')
@@ -27,8 +27,7 @@ df['Province'] = ('La Habana')
 
 # tidy up columns
 df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
-df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.replace(r'\\', "")
-df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r',', n = 1).str[0]
+df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n = 1).str[-1]
 df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.split('.', n = 1).str[-1]
 df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.split('.', n = 1).str[-1]
@@ -46,7 +45,7 @@ df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_ti
                      inplace = True)
 
 
-# Add month and day values
+# add month and day values
 df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
@@ -54,7 +53,7 @@ df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
 
 
 # export to csv
-df.to_csv('idep_dloc_COL.csv', index = False, encoding = 'utf-8')
+df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
 
  /$$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$$ /$$
