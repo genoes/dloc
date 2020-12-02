@@ -25,6 +25,3 @@
 
 2. ```ValueError: invalid literal for int() with base 10:```
 * Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) do not contain extra characters like an extra ```-```. (e.g. 1984--01-01 ==> 1984-01-01)
-
-3. ```AttributeError: Can only use .str accessor with string values!```
-* This error occurs when there are no values present for the volume/issue columns. **Work in progress!**
