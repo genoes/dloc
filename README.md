@@ -27,4 +27,4 @@
 * Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) do not contain extra characters like an extra ```-```. (e.g. 1984--01-01 ==> 1984-01-01)
 
 3. ```AttributeError: Can only use .str accessor with string values!```
-* Review the ```mods_part_detail_volume_number_ms``` column in the ```solr-output.csv```. This error occurs if there are no values for the volume/issue columns. **Work in progress!**
+* Review the ```mods_part_detail_volume_number_ms``` column in the ```solr-output.csv```. This error occurs when there are no values for the volume/issue columns. **Work in progress!**
