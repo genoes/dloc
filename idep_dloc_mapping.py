@@ -8,7 +8,7 @@ data = input('\n''Enter absolute path to CSV: ').strip(' ')
 df = pd.read_csv(data, header = 0)
 
 
-# add DLOC columns and consistent values
+# add DLOC columns and specified values
 df['Month'] = ('')
 df['Day'] = ('')
 df['Related URL'] = ('https://idep.library.ucla.edu/search#!/document/')
@@ -25,7 +25,7 @@ df['Aggregation code'] = ('iUCLA')
 df['Rights Statement'] = ('This item was contributed to the Digital Library of the Caribbean (dLOC) by the source institution listed in the metadata. This item may or may not be protected by copyright in the country where it was produced. Users of this work have responsibility for determining copyright status prior to reusing, publishing or reproducing this item for purposes other than what is allowed by applicable law, including any applicable international copyright treaty or fair use or fair dealing statutes, which dLOC partners have explicitly supported and endorsed. Any reuse of this item in excess of applicable copyright exceptions may require permission. dLOC would encourage users to contact the source institution directly or dloc@fiu.edu to request more information about copyright status or to provide additional information about the item.')
 
 
-# tidy up columns
+# tidy up data
 df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
 df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_titleInfo_title_ms'] = df['mods_titleInfo_title_ms'].str.split(r'\\', n = 1).str[0]
