@@ -25,3 +25,6 @@
 
 2. ```ValueError: invalid literal for int() with base 10:```
 * Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) do not contain extra characters like an extra ```-```. (e.g. 1984--01-01 ==> 1984-01-01)
+
+3 ```ValueError: cannot convert float NaN to integer```
+* Inspect the ```solr-output.csv``` and remove any rows that do not belong with the collection.
