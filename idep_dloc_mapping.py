@@ -47,12 +47,12 @@ df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_ti
                      inplace = True)
 
 
-# appending string text to holding location statement
+# adds strings to the Holding location statement
 df['Holding location statement'] = 'Newspapers are held at the ' + df['Holding location statement'].astype(str)
 df['Holding location statement'] = df['Holding location statement'].astype(str) + ' in Havana, Cuba'
 
 
-# add month and day values
+# adds values to month & day columns
 df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
