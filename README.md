@@ -22,5 +22,8 @@
 ------------
 ### Troubleshooting
 
-```ValueError: cannot convert float NaN to integer```
+1. ```ValueError: cannot convert float NaN to integer```
 * Review the ```dc.date``` column in the ```solr-output.csv```. Make sure dates are in ISO-8601 format (YYYY-MM-DD). The normalized dates must be the first value in the cell. Errors will occur if human readable dates are listed first in the cell.
+
+2. ```ValueError: invalid literal for int() with base 10:```
+* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) don't contain extra characters like an extra ```-```. e.g. 1984--01-01 ==> 1984-01-01
