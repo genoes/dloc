@@ -18,3 +18,9 @@
 2. Run python script and input path to ```solr-output.csv```
 
 3. A new csv will be exported as ```idep_dloc_ColName.csv```
+
+------------
+### Troubleshooting
+
+```ValueError: cannot convert float NaN to integer```
+* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure dates are in ISO-8601 format (YYYY-MM-DD). The normalized dates must be the first value in the cell. Errors will occur if human readable dates are listed first in the cell.
