@@ -12,16 +12,16 @@ df = pd.read_csv(data, header = 0)
 df['Month'] = ('')
 df['Day'] = ('')
 df['Related URL'] = ('https://idep.library.ucla.edu/search#!/document/')
-df['Related URL(link)'] = df['Related URL'] + df['PID']
+df['Related URL (link)'] = df['Related URL'] + df['PID']
 df.drop(['Related URL', 'PID'], axis = 1, inplace = True)
-df['Related URL(Label)'] = ('Full item available here')
+df['Related URL (Label)'] = ('Full item available here')
 df['Identifier Type'] = ('local')
-df['Genre authority'] = ('lcgft')
+df['Genre Authority'] = ('lcgft')
 df['Continent'] = ('North and Central America')
 df['Province'] = ('La Habana')
 df['Country'] = ('Cuba')
-df['Funding Source'] = ('Arcadia Fund')
-df['Aggregation code'] = ('iUCLA')
+df['Funding source'] = ('Arcadia Fund')
+df['Source Institution Code'] = ('iUCLA')
 df['Rights Statement'] = ('This item was contributed to the Digital Library of the Caribbean (dLOC) by the source institution listed in the metadata. This item may or may not be protected by copyright in the country where it was produced. Users of this work have responsibility for determining copyright status prior to reusing, publishing or reproducing this item for purposes other than what is allowed by applicable law, including any applicable international copyright treaty or fair use or fair dealing statutes, which dLOC partners have explicitly supported and endorsed. Any reuse of this item in excess of applicable copyright exceptions may require permission. dLOC would encourage users to contact the source institution directly or dloc@fiu.edu to request more information about copyright status or to provide additional information about the item.')
 
 
@@ -52,17 +52,20 @@ df['Holding location statement'] = 'Newspapers are held at the ' + df['Holding l
 df['Holding location statement'] = df['Holding location statement'].astype(str) + ' in Havana, Cuba'
 
 
-# adds values to month & day columns
+# adds values to date columns
 df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
 df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
+df['Volume'] = 'Volumen ' + df['Volume'].astype(str)
+df['Issue'] = 'Numero ' + df['Issue'].astype(str)
+df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
+
 
 
 # export to csv
 df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
-
  /$$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$$ /$$
 | $$__  $$ /$$__  $$| $$$ | $$| $$_____/| $$
 | $$  \ $$| $$  \ $$| $$$$| $$| $$      | $$
