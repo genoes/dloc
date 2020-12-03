@@ -55,6 +55,7 @@ df['Holding location statement'] = df['Holding location statement'].astype(str) 
 #separate out the subjects into their own respective columns
 df = df.join(df['Subject'].str.split(',', expand = True).add_prefix('Subject'))
 df.drop(['Subject'], axis = 1, inplace = True)
+df.columns = df.columns.str.replace('[0-9]', '') 
 
 
 # adds values to date columns
