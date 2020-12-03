@@ -19,8 +19,8 @@
 3. A new CSV will be exported as ```idep_dloc_ColName.csv```
 
 ### Manual edits
-1. Edit the ```Holding location statement``` values IF the collection object types are anything other than "Newspapers".
-2. Edit the numbered ```Subject``` columns so that they each have ```Subject``` as the header name.
+1. Edit the ```Holding location statement``` values IF the collection genre is anything other than "Newspapers".
+2. Edit the numbered ```Subject``` columns at the end of the CSV so that they each have ```Subject``` as the header name.
 
 ------------
 ### Troubleshooting
