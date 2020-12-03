@@ -52,8 +52,8 @@ df['Holding location statement'] = 'Newspapers are held at the ' + df['Holding l
 df['Holding location statement'] = df['Holding location statement'].astype(str) + ' in Havana, Cuba'
 
 
-# separate out the subjects into their own respective columns
-df = df.join(df['Subject'].str.split(',', expand=True).add_prefix('Subject'))
+#separate out the subjects into their own respective columns
+df = df.join(df['Subject'].str.split(',', expand = True).add_prefix('Subject'))
 df.drop(['Subject'], axis = 1, inplace = True)
 
 
@@ -62,8 +62,8 @@ df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
 df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
-df['Volume'] = 'Volumen ' + df['Volume'].astype(str)
-df['Issue'] = 'Numero ' + df['Issue'].astype(str)
+df['Volume'] = 'Volumen' + df['Volume'].astype(str)
+df['Issue'] = 'Numero' + df['Issue'].astype(str)
 df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
 
 
