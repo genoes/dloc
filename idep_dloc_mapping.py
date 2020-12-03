@@ -67,7 +67,6 @@ df['Issue'] = 'Numero ' + df['Issue'].astype(str)
 df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
 
 
-
 # export to csv
 df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
