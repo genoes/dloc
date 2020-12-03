@@ -20,7 +20,6 @@
 
 ### Manual edits
 1. Edit the ```Holding location statement``` values IF the collection genre is anything other than "Newspapers".
-2. Edit the numbered ```Subject``` columns at the end of the CSV so that they each have ```Subject``` as the header name.
 
 ------------
 ### Troubleshooting
