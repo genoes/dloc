@@ -43,13 +43,18 @@ df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_ti
                      'dc.date':'Publication or creation year', 'mods_part_detail_volume_number_ms':'Volume', 
                      'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'mods_genre_ms':'Genre', 
                      'mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City', 
-                     'mods_relatedItem_host_titleInfo_title_ms':'Series title', 'mods_location_physicalLocation_repository_s':'Holding location statement',}, 
+                     'mods_relatedItem_host_titleInfo_title_ms':'Series Title', 'mods_location_physicalLocation_repository_s':'Holding location statement',}, 
                      inplace = True)
 
 
 # adds strings to the Holding location statement
 df['Holding location statement'] = 'Newspapers are held at the ' + df['Holding location statement'].astype(str)
 df['Holding location statement'] = df['Holding location statement'].astype(str) + ' in Havana, Cuba'
+
+
+# separate out the subjects into their own respective columns
+df = df.join(df['Subject'].str.split(',', expand=True).add_prefix('Subject'))
+df.drop(['Subject'], axis = 1, inplace = True)
 
 
 # adds values to date columns
