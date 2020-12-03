@@ -58,7 +58,7 @@ df.drop(['Subject'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '') 
 
 
-# adds values to date columns
+# splits out the dates
 df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
