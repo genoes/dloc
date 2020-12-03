@@ -19,7 +19,7 @@
 3. A new CSV file will be exported as ```idep_dloc_ColName.csv```to your working directory
 
 ### Manual edits
-1. Edit the ```Holding location statement``` values IF the collection genre is anything other than "Newspapers".
+1. Edit the ```Holding location statement``` values IF the collection genre is anything other than "Newspapers". (See Line 51)
 
 ------------
 ### Troubleshooting
