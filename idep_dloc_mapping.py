@@ -65,6 +65,7 @@ df['Month'] = df['Month'].astype(int)
 df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
 df['Volume'] = 'Volumen' + df['Volume'].astype(str)
 df['Issue'] = 'Numero' + df['Issue'].astype(str)
+df['Issue'] = df['Issue'].str.replace('no.','Numero')
 df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
 
 
