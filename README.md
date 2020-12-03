@@ -11,7 +11,7 @@
 ### Steps
 1. Open the ```solr-query.txt``` file and replace ```COLL_NAMING_CONVENTION``` with the desired collection. e.g. *ihc_comunista*):
 
-2. Run the ```curl``` command by typing ```bash solr-query.txt``` in your Terminal
+2. Open Terminal and run the ```curl``` command: ```bash solr-query.txt```
 
 * A CSV file will be exported as ```solr-output.csv``` to your working directory
 
