@@ -9,9 +9,9 @@
 ------------
 
 ### Steps
-1. Open the ```solr-query.txt``` file and replace ```COLL_NAMING_CONVENTION``` with the desired collection file name prefix. e.g. *ihc_comunista*):
+1. Open the ```solr-query.txt``` file and replace ```COLL_NAMING_CONVENTION``` with the desired collection file name prefix. e.g. *ihc_comunista*. Then save your changes.
 
-2. Open Terminal and run the ```curl``` command: ```bash solr-query.txt```
+2. Open Terminal and type: ```bash solr-query.txt```
 
 * A CSV file will be exported as ```solr-output.csv``` to your working directory
 
