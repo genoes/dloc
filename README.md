@@ -19,7 +19,7 @@
 
 4. In Terminal type: ```python idep_dloc_mapping.py```
 
-5. Input absolute path to ```solr-output.csv``` when prompted
+5. Input absolute path to the ```solr-output.csv``` when prompted
 
 * A new CSV file named ```idep_dloc_ColName.csv``` will be exported to your current working directory
 
