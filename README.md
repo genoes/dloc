@@ -1,5 +1,5 @@
 # idep-dloc-metadata-mapping
-### Mapping a IDEP metadata spreadsheet to DLOC
+### Mapping IDEP metadata fields to DLOC metadata fields
 
 
 ### Requirements
