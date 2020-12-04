@@ -25,14 +25,14 @@ df['Source Institution Code'] = ('iUCLA')
 df['Rights Statement'] = ('This item was contributed to the Digital Library of the Caribbean (dLOC) by the source institution listed in the metadata. This item may or may not be protected by copyright in the country where it was produced. Users of this work have responsibility for determining copyright status prior to reusing, publishing or reproducing this item for purposes other than what is allowed by applicable law, including any applicable international copyright treaty or fair use or fair dealing statutes, which dLOC partners have explicitly supported and endorsed. Any reuse of this item in excess of applicable copyright exceptions may require permission. dLOC would encourage users to contact the source institution directly or dloc@fiu.edu to request more information about copyright status or to provide additional information about the item.')
 
 
-# tidy up data
+# data cleaning
 df = df.fillna("")
 df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
 df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_titleInfo_title_ms'] = df['mods_titleInfo_title_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n = 1).str[-1]
-df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.split('.', n = 1).str[-1]
-df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.split('.', n = 1).str[-1]
+df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.replace('vol.', 'Volumen')
+df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.replace('no.', 'Numero')
 df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n = 1).str[-1]
 df['mods_relatedItem_host_titleInfo_title_ms'] = df['mods_relatedItem_host_titleInfo_title_ms'].str.split(',', n = 3).str[-1]
 
@@ -64,12 +64,6 @@ df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
 df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
 df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
-
-
-# Adds strings to volume/issue values
-df['Volume'] = 'Volumen' + df['Volume'].astype(str)
-df['Issue'] = 'Numero' + df['Issue'].astype(str)
-df['Issue'] = df['Issue'].str.replace('no.','Numero')
 
 
 # export to csv
