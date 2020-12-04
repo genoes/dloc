@@ -11,7 +11,7 @@
 ### Steps
 1. Open Terminal and change your working directory to the ```idep-dloc-metadata-mapping-main``` folder
 
-2. Open the ```solr-query.txt``` file and replace ```COLL_NAMING_CONVENTION``` with the desired collection file name prefix. e.g. *ihc_comunista*. Then save your changes.
+2. Open the ```solr-query.txt``` file and replace ```COLL_NAMING_CONVENTION``` with the desired collection file name prefix. e.g. *ihc_comunista*.
 
 3. In Terminal type: ```bash solr-query.txt```
 
