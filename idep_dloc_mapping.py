@@ -63,10 +63,13 @@ df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
 df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
+df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
+
+
+# Adds strings to volume/issue values
 df['Volume'] = 'Volumen' + df['Volume'].astype(str)
 df['Issue'] = 'Numero' + df['Issue'].astype(str)
 df['Issue'] = df['Issue'].str.replace('no.','Numero')
-df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
 
 
 # export to csv
