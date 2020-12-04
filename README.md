@@ -9,7 +9,7 @@
 ------------
 
 ### Steps
-1. Open Terminal and change your working directory to the "idep-dloc-metadata-mapping-main" folder
+1. Open Terminal, run ```git clone https://github.com/genoes/idep-dloc-metadata-mapping.git```. 
 
 2. Open the "solr-query.txt" file and replace ```CHANGE-ME``` with the desired collection file name prefix. e.g. *ihc_comunista*.
 
