@@ -9,22 +9,22 @@
 ------------
 
 ### Steps
-1. Open Terminal and change your working directory to the ```idep-dloc-metadata-mapping-main``` folder
+1. Open Terminal and change your working directory to the "idep-dloc-metadata-mapping-main" folder
 
-2. Open the ```solr-query.txt``` file and replace ```CHANGE-ME``` with the desired collection file name prefix. e.g. *ihc_comunista*.
+2. Open the "solr-query.txt" file and replace ```CHANGE-ME``` with the desired collection file name prefix. e.g. *ihc_comunista*.
 
 3. In Terminal type: ```bash solr-query.txt```
 
-* A CSV file named ```solr-output.csv``` will be exported to your current working directory
+* A CSV file named "solr-output.csv" will be exported to your current working directory
 
 4. In Terminal type: ```python idep_dloc_mapping.py```
 
-5. Input absolute path to the ```solr-output.csv``` when prompted
+5. Input absolute path to the "solr-output.csv" when prompted
 
-* A new CSV file named ```idep_dloc_ColName.csv``` will be exported to your current working directory
+* A new CSV file named "idep_dloc_ColName.csv" will be exported to your current working directory
 
 ### Manual edits
-1. Edit the ```Holding location statement``` values IF the collection genre is anything other than "Newspapers". (See Line 51)
+1. Edit the "Holding location statement" values IF the collection genre is anything other than "Newspapers". (See Line 51)
 
 ------------
 ### Troubleshooting
