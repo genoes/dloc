@@ -12,7 +12,7 @@ df = pd.read_csv(data, header = 0)
 df['Month'] = ('')
 df['Day'] = ('')
 df['Related URL'] = ('https://idep.library.ucla.edu/search#!/document/')
-df['Related URL (link)'] = df['Related URL'] + df['PID']
+df['Related URL (Note)'] = df['Related URL'] + df['PID']
 df.drop(['Related URL', 'PID'], axis = 1, inplace = True)
 df['Related URL (Label)'] = ('Full item available here')
 df['Identifier Type'] = ('local')
