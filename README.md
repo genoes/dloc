@@ -34,4 +34,7 @@
 	* Check for any rows that only contain PIDs and delete them. (e.g. Cuba y America's solr query contains empty rows from a past test ingest.)
 	
 * ```ValueError: invalid literal for int() with base 10:```
-	* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) do not contain extra characters like an extra ```-```. (e.g. 1984--01-01 ==> 1984-01-01)	
+	* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) do not contain extra characters like an extra ```-```. (e.g. 1984--01-01 ==> 1984-01-01)
+
+* ```ValueErrorIndexError: list index out of range:```
+	* Review the ```dc.date``` column in the ```solr-output.csv```. This error occurs when there are  only year range dates (e.g. 1911-1933). Solution for now is to comment out lines 62-66 and run as normal.
