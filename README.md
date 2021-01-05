@@ -37,4 +37,4 @@
 	* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure the normalized dates (YYYY-MM-DD) do not contain extra characters like an extra ```-```. (e.g. 1984--01-01 ==> 1984-01-01)
 
 * ```ValueErrorIndexError: list index out of range:```
-	* Review the ```dc.date``` column in the ```solr-output.csv```. This error occurs when there are  only year range dates (e.g. 1911-1933). Solution for now is to comment out lines 62-66 and run as normal.
+	* Review the ```dc.date``` column in the ```solr-output.csv```. This error occurs when there are only year range dates present (e.g. 1911-1933). Solution for now is to comment out lines 62-66 and then run the script as normal.
