@@ -30,7 +30,7 @@
 ### Troubleshooting
 
 * ```ValueError: cannot convert float NaN to integer```
-	* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure dates are in ISO-8601 format (YYYY-MM-DD). The normalized dates must be the first value in the cell. Errors will occur if human readable dates are listed first in the cell. (e.g. primero de mayo de 1952, 1952-05-01 ==> 1952-05-01, primero de mayo de 1952)
+	* Review the ```dc.date``` column in the ```solr-output.csv```. Make sure dates are in ISO-8601 format (YYYY-MM-DD). The normalized dates must be the first value in the cell. Errors will occur if human readable dates are listed first in the cell. (e.g. primero de mayo de 1952, 1952-05-01 ==> 1952-05-01, primero de mayo de 1952). This error will also occur if there are no dates present.
 	* Check for any rows that only contain PIDs and delete them. (e.g. Cuba y America's solr query contains empty rows from a past test ingest.)
 	
 * ```ValueError: invalid literal for int() with base 10:```
