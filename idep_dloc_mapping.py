@@ -66,6 +66,11 @@ df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
 df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
 
 
+# translates months into the Spanish form
+df = df.replace({'Month': {'January':'enero', 'February' : 'febrero', 'March':'marzo', 'April':'abril', 'May':'mayo', 'June':'junio',
+'July':'julio', 'August':'agosto', 'September':'septiembre', 'October':'octubre', 'November':'noviembre', 'December':'diciembre'}})
+
+
 # export to csv
 df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
