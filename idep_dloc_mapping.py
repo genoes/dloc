@@ -39,7 +39,7 @@ df['mods_relatedItem_host_titleInfo_title_ms'] = df['mods_relatedItem_host_title
 
 # rename Solr columns
 df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_title_ms':'Title', 
-                     'dc.publisher':'Creator', 'mods_language_languageTerm_text_ms':'Language', 
+                     'dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language', 
                      'dc.date':'Publication or creation year', 'mods_part_detail_volume_number_ms':'Volume', 
                      'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'mods_genre_ms':'Genre', 
                      'mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City', 
