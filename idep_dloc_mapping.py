@@ -30,6 +30,7 @@ df = df.fillna("")
 df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
 df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_titleInfo_title_ms'] = df['mods_titleInfo_title_ms'].str.replace('\\', '')
+df['dc.contributor'] = df['dc.contributor'].str.replace('\\', '')
 df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n = 1).str[-1]
 df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.replace('vol.', 'Volumen')
 df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.replace('no.', 'Numero')
