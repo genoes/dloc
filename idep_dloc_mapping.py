@@ -64,7 +64,7 @@ df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
 df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
 df['Month'] = df['Month'].astype(int)
 df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
-df['Publication or creation year'] = df['Publication or creation year'].str.split('-', n = -3).str[3]
+df['Publication or creation year'] = df['Publication or creation year'].str.split('-').str[0]
 
 
 # translates months into the Spanish form
