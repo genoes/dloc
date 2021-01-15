@@ -54,16 +54,16 @@ df['Holding location statement'] = 'Newspapers are held at the ' + df['Holding l
 df['Holding location statement'] = df['Holding location statement'].astype(str) + ' in Havana, Cuba'
 
 
-# separate out the subjects into their own respective columns
-df = df.join(df['Subject'].str.split(',', expand = True).add_prefix('Subject'))
-df.drop(['Subject'], axis = 1, inplace = True)
-df.columns = df.columns.str.replace('[0-9]', '') 
-
-
 # separate out the creators into their own respective columns
 df['Creator'] =  df['Creator'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(x)))
 df = df.join(df['Creator'].str.split('|', expand = True).add_prefix('Creator'))
 df.drop(['Creator'], axis = 1, inplace = True)
+df.columns = df.columns.str.replace('[0-9]', '') 
+
+
+# separate out the subjects into their own respective columns
+df = df.join(df['Subject'].str.split(',', expand = True).add_prefix('Subject'))
+df.drop(['Subject'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '') 
 
 
