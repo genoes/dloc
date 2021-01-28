@@ -71,6 +71,7 @@ df.drop(['Subject'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '')
 
 
+# separate out the languages into their own respective columns
 df = df.join(df['Language'].str.split(',', expand = True).add_prefix('Language'))
 df.drop(['Language'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '') 
