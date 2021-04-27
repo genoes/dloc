@@ -5,7 +5,7 @@ import re
 
 
 # read csv
-data = input('\n''Enter absolute path to CSV: ').strip(' ')
+data = input('\n''Enter absolute path to CSV: ').strip()
 df = pd.read_csv(data, header = 0)
 
 
