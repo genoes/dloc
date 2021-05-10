@@ -89,6 +89,10 @@ df = df.replace({'Month': {'January':'enero', 'February' : 'febrero', 'March':'m
 'July':'julio', 'August':'agosto', 'September':'septiembre', 'October':'octubre', 'November':'noviembre', 'December':'diciembre'}})
 
 
+# removes all leading and trialing whitespaces
+df.replace(r"^ +| +$", r"", regex=True, inplace=True)
+
+
 # export to csv
 df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
