@@ -5,7 +5,8 @@ import re
 
 
 # read csv
-data = input('\n''Enter absolute path to CSV: ').strip()
+data = input('\n'"Enter absolute path to solr output CSV: ").strip()
+genre = input('\n'"Enter the genre for this collection (e.g. newspapers, posters, etc...): ").strip()
 df = pd.read_csv(data, header = 0)
 
 
@@ -44,25 +45,23 @@ df['mods_relatedItem_host_titleInfo_title_ms'] = df['mods_relatedItem_host_title
 
 
 # rename Solr columns
-df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_title_ms':'Title', 
-                     'dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language', 
-                     'dc.date':'Publication or creation year', 'mods_part_detail_volume_number_ms':'Volume', 
-                     'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'mods_genre_ms':'Genre', 
-                     'mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City', 
-                     'mods_relatedItem_host_titleInfo_title_ms':'Series Title', 'mods_location_physicalLocation_repository_s':'Holding location statement',}, 
+df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_title_ms':'Title',
+                     'dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language',
+                     'dc.date':'Publication or creation year', 'mods_part_detail_volume_number_ms':'Volume',
+                     'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'mods_genre_ms':'Genre',
+                     'mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City',
+                     'mods_relatedItem_host_titleInfo_title_ms':'Series Title', 'mods_location_physicalLocation_repository_s':'Holding location statement',},
                      inplace = True)
 
 
-# adds strings to the Holding location statement
-df['Holding location statement'] = 'Newspapers are held at the ' + df['Holding location statement'].astype(str)
-df['Holding location statement'] = df['Holding location statement'].astype(str) + ' in Havana, Cuba'
-
+# adds string to the Holding location statement
+df['Holding location statement'] = genre.title() + ' are held at the ' + df['Holding location statement'].astype(str) +  ' in Havana, Cuba.'
 
 # separate out the creators into their own respective columns
 df['Creator'] =  df['Creator'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(x)))
 df = df.join(df['Creator'].str.split('|', expand = True).add_prefix('Creator'))
 df.drop(['Creator'], axis = 1, inplace = True)
-df.columns = df.columns.str.replace('[0-9]', '') 
+df.columns = df.columns.str.replace('[0-9]', '')
 
 
 # separate out the subjects into their own respective columns
@@ -74,7 +73,7 @@ df.columns = df.columns.str.replace('[0-9]', '')
 # separate out the languages into their own respective columns
 df = df.join(df['Language'].str.split(',', expand = True).add_prefix('Language'))
 df.drop(['Language'], axis = 1, inplace = True)
-df.columns = df.columns.str.replace('[0-9]', '') 
+df.columns = df.columns.str.replace('[0-9]', '')
 
 
 # splits out the dates
@@ -98,8 +97,8 @@ print('\n''''
 | ##  \ ##| ##  \ ##| ####| ##| ##      | ##
 | ##  | ##| ##  | ##| ## ## ##| #####   | ##
 | ##  | ##| ##  | ##| ##  ####| ##__/   |__/
-| ##  | ##| ##  | ##| ##\  ###| ##          
+| ##  | ##| ##  | ##| ##\  ###| ##
 | #######/|  ######/| ## \  ##| ######## /##
 |_______/  \______/ |__/  \__/|________/|__/
-                                                                                                                              
+
 ''')
