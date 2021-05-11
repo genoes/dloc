@@ -103,7 +103,7 @@ df.replace(r"^ +| +$", r"", regex = True, inplace = True)
 
 
 # export to csv
-df.to_csv('idep_dloc_ColName.csv', index = False, delimiter=',', encoding = 'utf-8')
+df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
  /#######   /######  /##   /## /######## /##
 | ##__  ## /##__  ##| ### | ##| ##_____/| ##
