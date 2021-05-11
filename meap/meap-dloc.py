@@ -6,7 +6,7 @@ import re
 
 # read csv
 data = input('\n'"Enter absolute path to solr output CSV: "'\n').strip()
-resource = input('\n'"Enter the genre for this collection (e.g. newspapers, posters, etc...): "'\n').strip()
+genre = input('\n'"Enter the genre for this collection (e.g. newspapers, posters, etc...): "'\n').strip()
 continent = input('\n'"Enter the continent associated with this collection: "'\n').strip()
 province = input('\n'"Enter the province associated with this collection: "'\n').strip()
 country = input('\n'"Enter the country associated with this collection: "'\n').strip()
@@ -61,7 +61,7 @@ df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_ti
 
 
 # adds string to the Holding location statement
-df['Holding location statement'] = resource.title() + ' are held at the ' + df['Holding location statement'].astype(str) +  ' in Havana, Cuba.'
+df['Holding location statement'] = genre.title() + ' are held at the ' + df['Holding location statement'].astype(str) +  ' in Havana, Cuba.'
 
 # separate out the creators into their own respective columns
 df['Creator'] =  df['Creator'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(x)))
@@ -82,8 +82,8 @@ df.drop(['Language'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '')
 
 
-# removes all leading and trialing whitespaces
-df.replace(r"^ +| +$", r"", regex=True, inplace=True)
+# removes all leading and trialing whitespaces in dataframe
+df.replace(r"^ +| +$", r"", regex = True, inplace = True)
 
 # (need to standardize the dates first)
 
@@ -103,7 +103,7 @@ df.replace(r"^ +| +$", r"", regex=True, inplace=True)
 
 
 # export to csv
-df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
+df.to_csv('idep_dloc_ColName.csv', index = False, delimiter=',', encoding = 'utf-8')
 print('\n''''
  /#######   /######  /##   /## /######## /##
 | ##__  ## /##__  ##| ### | ##| ##_____/| ##
