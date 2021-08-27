@@ -37,7 +37,6 @@ df = df.fillna("")
 df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].astype(int)
 df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].replace(0, "")
 df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
-#df['mods_location_physicalLocation_boxNumber_s'] = df['mods_location_physicalLocation_boxNumber_s'].astype(int)
 df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_titleInfo_title_ms'] = df['mods_titleInfo_title_ms'].str.replace('\\', '')
 df['dc.format'] = df['dc.format'].str.replace('\\', '')
@@ -60,7 +59,7 @@ df['mods_genre_ms'] = df['mods_genre_ms'].str.split(',', n = 1).str[-1]
 df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_title_ms':'Title',
                      'dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language',
                      'dc.date':'Publication or creation year', 'mods_location_physicalLocation_boxNumber_s': 'Box #', 'mods_location_physicalLocation_folderNumber_s': 'Folder #', 'mods_part_detail_volume_number_ms':'Volume',
-                     'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'dc.description':'Abstract', 'mods_genre_ms':'Genre', 'mods_relatedItem_series_titleInfo_title_ms':'Series', 'mods_originInfo_publisher_ms': 'Publisher','mods_subject_temporal_ms':'Temporal Coverage','mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City','mods_relatedItem_host_titleInfo_title_ms':'Series Title', 'mods_location_physicalLocation_repository_s':'Holding location statement',},
+                     'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'dc.description':'Abstract', 'mods_genre_ms':'Genre', 'mods_relatedItem_series_titleInfo_title_ms':'Series', 'mods_originInfo_publisher_ms': 'Publisher','mods_subject_temporal_ms':'Temporal Coverage','mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City','mods_relatedItem_host_titleInfo_title_ms':'Series Title','mods_location_physicalLocation_repository_s':'Holding location statement',},
                      inplace = True)
 
 
@@ -74,6 +73,14 @@ df['Creator'] =  df['Creator'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(
 df = df.join(df['Creator'].str.split('|', expand = True).add_prefix('Creator'))
 df.drop(['Creator'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '')
+
+
+# Split out the coordinates and give them their own column.
+df['mods_subject_cartographics_coordinates_s'].dropna(inplace = True)
+new = df["mods_subject_cartographics_coordinates_s"].str.split(",", n = 1, expand = True)
+df["Latitude"]= new[0]
+df["Longitude"]= new[1]
+df.drop(columns =["mods_subject_cartographics_coordinates_s"], inplace = True)
 
 
 # separate out the subjects into their own respective columns
