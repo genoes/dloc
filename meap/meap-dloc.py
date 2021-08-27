@@ -1,6 +1,5 @@
 # import modules
 import pandas as pd
-import numpy as np
 # import calendar
 import re
 
@@ -66,7 +65,6 @@ df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_ti
 # adds string to the Holding location statement
 df['Holding location statement'] = genre.title() + ' are held at the ' + df['Holding location statement'].astype(str) + ' in ' + df['Country']
 
-#df['Folder #'] = df['Folder #'].apply(int)
 
 # separate out the creators into their own respective columns
 df['Creator'] =  df['Creator'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(x)))
