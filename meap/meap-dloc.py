@@ -1,5 +1,6 @@
 # import modules
 import pandas as pd
+import numpy as np
 # import calendar
 import re
 
@@ -31,8 +32,12 @@ df['Rights Statement'] = ('This item was contributed to the Digital Library of t
 
 
 # data cleaning
+df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].fillna(0)
 df = df.fillna("")
+df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].astype(int)
+df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].replace(0, "")
 df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
+#df['mods_location_physicalLocation_boxNumber_s'] = df['mods_location_physicalLocation_boxNumber_s'].astype(int)
 df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
 df['mods_titleInfo_title_ms'] = df['mods_titleInfo_title_ms'].str.replace('\\', '')
 df['dc.format'] = df['dc.format'].str.replace('\\', '')
@@ -41,6 +46,7 @@ df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n
 df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.replace('.pdf', '')
 df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.replace('vol.', 'Volumen')
 df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.replace('\\', '')
+df['dc.description'] = df['dc.description'].str.replace('\\', '')
 df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.replace('no.', 'Numero')
 df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.replace('\\', '')
 df['dc.date'] = df['dc.date'].str.replace('\\', '')
@@ -53,15 +59,15 @@ df['mods_genre_ms'] = df['mods_genre_ms'].str.split(',', n = 1).str[-1]
 # rename Solr columns
 df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_title_ms':'Title',
                      'dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language',
-                     'dc.date':'Publication or creation year', 'mods_part_detail_volume_number_ms':'Volume',
-                     'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'mods_genre_ms':'Genre',
-                     'mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City',
-                     'mods_relatedItem_host_titleInfo_title_ms':'Series Title', 'mods_location_physicalLocation_repository_s':'Holding location statement',},
+                     'dc.date':'Publication or creation year', 'mods_location_physicalLocation_boxNumber_s': 'Box #', 'mods_location_physicalLocation_folderNumber_s': 'Folder #', 'mods_part_detail_volume_number_ms':'Volume',
+                     'mods_part_detail_issue_number_ms':'Issue', 'dc.format':'Extent', 'dc.description':'Abstract', 'mods_genre_ms':'Genre', 'mods_relatedItem_series_titleInfo_title_ms':'Series', 'mods_originInfo_publisher_ms': 'Publisher','mods_subject_temporal_ms':'Temporal Coverage','mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City','mods_relatedItem_host_titleInfo_title_ms':'Series Title', 'mods_location_physicalLocation_repository_s':'Holding location statement',},
                      inplace = True)
 
 
 # adds string to the Holding location statement
-df['Holding location statement'] = genre.title() + ' are held at the ' + df['Holding location statement'].astype(str) +  ' in Havana, Cuba.'
+df['Holding location statement'] = genre.title() + ' are held at the ' + df['Holding location statement'].astype(str) + ' in ' + df['Country']
+
+#df['Folder #'] = df['Folder #'].apply(int)
 
 # separate out the creators into their own respective columns
 df['Creator'] =  df['Creator'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(x)))
@@ -103,7 +109,7 @@ df.replace(r"^ +| +$", r"", regex = True, inplace = True)
 
 
 # export to csv
-df.to_csv('idep_dloc_ColName.csv', index = False, encoding = 'utf-8')
+df.to_csv('meap_dloc_ColName.csv', index = False, encoding = 'utf-8')
 print('\n''''
  /#######   /######  /##   /## /######## /##
 | ##__  ## /##__  ##| ### | ##| ##_____/| ##
