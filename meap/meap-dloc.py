@@ -1,33 +1,19 @@
 # import modules
 import pandas as pd
-# import calendar
 import re
 
 
 # read csv
 data = input('\n'"Enter absolute path to solr output CSV: "'\n').strip()
-genre = input('\n'"Enter the genre for this collection (e.g. newspapers, posters, etc...): "'\n').strip()
-continent = input('\n'"Enter the continent associated with this collection: "'\n').strip()
-province = input('\n'"Enter the province associated with this collection: "'\n').strip()
-country = input('\n'"Enter the country associated with this collection: "'\n').strip()
 df = pd.read_csv(data, header = 0)
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+
 
 # add DLOC columns and specified values
 df['Month'] = ('')
 df['Day'] = ('')
-df['Related URL'] = ('https://meap.library.ucla.edu/search#!/document/')
-df['Related URL (Note)'] = df['Related URL'] + df['PID']
-df.drop(['Related URL', 'PID'], axis = 1, inplace = True)
-df['Related URL (Label)'] = ('Full item available here')
-df['Identifier Type'] = ('local')
-df['Genre Authority'] = ('lcgft')
-df['Continent'] = (continent).title()
-df['Province'] = (province).title()
-df['Country'] = (country).title()
-df['Funding source'] = ('Arcadia Fund')
-df['Source Institution Code'] = ('iUCLA')
-df['Rights Statement'] = ('This item was contributed to the Digital Library of the Caribbean (dLOC) by the source institution listed in the metadata. This item may or may not be protected by copyright in the country where it was produced. Users of this work have responsibility for determining copyright status prior to reusing, publishing or reproducing this item for purposes other than what is allowed by applicable law, including any applicable international copyright treaty or fair use or fair dealing statutes, which dLOC partners have explicitly supported and endorsed. Any reuse of this item in excess of applicable copyright exceptions may require permission. dLOC would encourage users to contact the source institution directly or dloc@fiu.edu to request more information about copyright status or to provide additional information about the item.')
+df['Extent'] = ('')
+df['Measurements'] = ('')
 
 
 # data cleaning
@@ -35,35 +21,29 @@ df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physical
 df = df.fillna("")
 df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].astype(int)
 df['mods_location_physicalLocation_folderNumber_s'] = df['mods_location_physicalLocation_folderNumber_s'].replace(0, "")
-df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
-df['mods_originInfo_place_placeTerm_ms'] = df['mods_originInfo_place_placeTerm_ms'].str.split(r'\\', n = 1).str[0]
+#df['dc.date'] = df['dc.date'].str.split(',', n = 1).str[0]
+df['dc.date'] = df['dc.date'].str.replace('\\', '')
 df['mods_titleInfo_title_ms'] = df['mods_titleInfo_title_ms'].str.replace('\\', '')
-#df['dc.format'] = df['dc.format'].str.replace('\\', '')
+df['dc.format'] = df['dc.format'].str.replace('\\', '')
 df['dc.contributor'] = df['dc.contributor'].str.replace('\\', '')
 df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n = 1).str[-1]
-df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.replace('.pdf', '')
-df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.replace('vol.', 'Volumen')
 df['mods_part_detail_volume_number_ms'] = df['mods_part_detail_volume_number_ms'].str.replace('\\', '')
 df['dc.description'] = df['dc.description'].str.replace('\\', '')
-df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.replace('no.', 'Numero')
 df['mods_part_detail_issue_number_ms'] = df['mods_part_detail_issue_number_ms'].str.replace('\\', '')
-df['dc.date'] = df['dc.date'].str.replace('\\', '')
+df['mods_originInfo_publisher_ms'] = df['mods_originInfo_publisher_ms'].str.replace('\\', '')
 df['mods_subject_topic_ms'] = df['mods_subject_topic_ms'].str.replace('\\', '')
-df['mods_identifier_local_ms'] = df['mods_identifier_local_ms'].str.split(',', n = 1).str[-1]
-df['mods_relatedItem_host_titleInfo_title_ms'] = df['mods_relatedItem_host_titleInfo_title_ms'].str.split(',', n = 3).str[-1]
-df['mods_genre_ms'] = df['mods_genre_ms'].str.split(',', n = 1).str[-1]
+df['mods_subject_cartographics_coordinates_s'] = df['mods_subject_cartographics_coordinates_s'].str.replace('ﾡ', '°')
+df['mods_subject_cartographics_coordinates_s'] = df['mods_subject_cartographics_coordinates_s'].str.replace('�', '°')
+
 
 
 # rename Solr columns
-df.rename(columns = {'mods_identifier_local_ms':'Identifier', 'mods_titleInfo_title_ms':'Title',
-                     'dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language',
-                     'dc.date':'Publication or creation year', 'mods_location_physicalLocation_boxNumber_s': 'Box #', 'mods_location_physicalLocation_folderNumber_s': 'Folder #', 'mods_part_detail_volume_number_ms':'Volume',
-                     'mods_part_detail_issue_number_ms':'Issue', 'mods_physicalDescription_Extent_s':'Extent', 'mods_physicalDescription_Dimensions_s':'Measurements', 'dc.description':'Abstract', 'mods_genre_ms':'Genre', 'mods_relatedItem_series_titleInfo_title_ms':'Series', 'mods_originInfo_publisher_ms': 'Publisher','mods_subject_temporal_ms':'Temporal Coverage','mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City','mods_relatedItem_host_titleInfo_title_ms':'Series Title','mods_location_physicalLocation_repository_s':'Holding location statement',},
+df.rename(columns = {'mods_identifier_local_ms':'For Digital Support Services reference', 'mods_titleInfo_title_ms':'Title','dc.contributor':'Creator', 'mods_language_languageTerm_text_ms':'Language',
+                    'dc.date':'Publication or Creation Year', 'mods_location_physicalLocation_boxNumber_s': 'Box #', 'mods_location_physicalLocation_folderNumber_s': 'Folder #',
+                     'mods_part_detail_volume_number_ms':'Volume','mods_part_detail_issue_number_ms':'Issue', 'dc.description':'Abstract', 'mods_genre_ms':'Genre', 'mods_relatedItem_series_titleInfo_title_ms':'Series', 'mods_originInfo_publisher_ms': 'Publisher','mods_subject_temporal_ms':'Temporal Coverage','mods_subject_topic_ms':'Subject', 'mods_originInfo_place_placeTerm_ms':'City','mods_relatedItem_host_titleInfo_title_ms':'Series Title','mods_location_physicalLocation_repository_s':'Donor','mods_location_physicalLocation_collection_s':'Collection Name','mods_typeOfResource_s':'Material Type',
+                     'dc.format':'Materials','mods_subject_geographic_ms':'Geographic Area','mods_accessCondition_copyright_services_contact_ms':'Rights Statement'},
                      inplace = True)
 
-
-# adds string to the Holding location statement
-df['Holding location statement'] = genre.title() + ' are held at the ' + df['Holding location statement'].astype(str) + ' in ' + df['Country']
 
 
 # separate out the creators into their own respective columns
@@ -73,12 +53,11 @@ df.drop(['Creator'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '')
 
 
-# Split out the coordinates and give them their own column.
-#df['mods_subject_cartographics_coordinates_s'].dropna(inplace = True)
-new = df["mods_subject_cartographics_coordinates_s"].str.split(",", n = 1, expand = True)
-df["Latitude"]= new[0]
-df["Longitude"]= new[1]
-df.drop(columns =["mods_subject_cartographics_coordinates_s"], inplace = True)
+# separate out the publishers into their own respective columns
+df['Publisher'] =  df['Publisher'].apply(lambda x: re.sub(r'(,[^,]*),', r'\1|', str(x)))
+df = df.join(df['Publisher'].str.split('|', expand = True).add_prefix('Publisher'))
+df.drop(['Publisher'], axis = 1, inplace = True)
+df.columns = df.columns.str.replace('[0-9]', '')
 
 
 # separate out the subjects into their own respective columns
@@ -93,28 +72,30 @@ df.drop(['Genre'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '')
 
 
-# separate out the languages into their own respective columns
-df = df.join(df['Language'].str.split(',', expand = True).add_prefix('Language'))
-df.drop(['Language'], axis = 1, inplace = True)
+
+# separate out the Geographic Area into their own respective columns
+df = df.join(df['Geographic Area'].str.split(',', expand = True).add_prefix('Geographic Area'))
+df.drop(['Geographic Area'], axis = 1, inplace = True)
 df.columns = df.columns.str.replace('[0-9]', '')
 
 
-# removes all leading and trialing whitespaces in dataframe
-df.replace(r"^ +| +$", r"", regex = True, inplace = True)
-
-# (need to standardize the dates first)
-
-# splits out the dates
-#df['Month'] = df['Publication or creation year'].str.split('-', n = 2).str[1]
-#df['Day'] = df['Publication or creation year'].str.split('-', n = 3).str[2]
-#df['Month'] = df['Month'].astype(int)
-#df['Month'] = df['Month'].apply(lambda x: calendar.month_name[x])
-#df['Publication or creation year'] = df['Publication or creation year'].str.split('-').str[0]
+# Split out the coordinates and give them their own column.
+# comment this block out if there are no coordinates present (it will break script)
+df['mods_subject_cartographics_coordinates_s'].dropna(inplace = True)
+new = df["mods_subject_cartographics_coordinates_s"].str.split(",", n = 1, expand = True)
+df["Latitude"]= new[0]
+df["Longitude"]= new[1]
+df.drop(columns =["mods_subject_cartographics_coordinates_s"], inplace = True)
 
 
-# translates months into the Spanish form
-#df = df.replace({'Month': {'January':'enero', 'February' : 'febrero', 'March':'marzo', 'April':'abril', 'May':'mayo', 'June':'junio',
-#'July':'julio', 'August':'agosto', 'September':'septiembre', 'October':'octubre', 'November':'noviembre', 'December':'diciembre'}})
+# Split out the extent/dimensions and give them their own column.
+# comment this block out if there are no extent metadata present (it will break script)
+#df['mods_physicalDescription_extent_s'].dropna(inplace = True)
+#new = df["mods_physicalDescription_extent_s"].str.split(",", n = 1, expand = True)
+#df["Extent"]= new[0]
+#df["Dimensions"]= new[1]
+df.drop(columns =["mods_physicalDescription_extent_s"], inplace = True)
+
 
 
 
