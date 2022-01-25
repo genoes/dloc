@@ -13,7 +13,7 @@
 
 2. Open the "solr-query.txt" file and replace ```CHANGE-ME``` with the desired collection file name prefix. e.g. *ihc_comunista* (This information can be found in the **Local information** section in any item page on the MEAP website.
 
-3. In Terminal type: ```bash solr-query.txt```
+3. In Terminal type: ```bash solr-query-meap.txt```
 
 	* A CSV file named "solr-output.csv" will be exported to your current working directory
 
