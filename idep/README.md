@@ -9,7 +9,9 @@
 ------------
 
 ### Steps
-1. Open Terminal, run ```git clone https://github.com/genoes/dloc.git```, and change your current working directory to the "idep" folder. You may delete the "meap" folder from your working directory.
+1. Open Terminal, run ```git clone https://github.com/genoes/dloc.git```, and change your current working directory to the "idep" folder. You may delete the "meap" folder from your working directory:
+
+	* ```cd ~/Desktop/dloc/idep```
 
 2. Open the "solr-query.txt" file and replace ```CHANGE-ME``` with the desired collection file name prefix. e.g. *ihc_comunista* (This information can be found in the **Local information** section in any item page on the IDEP website. Then save.
 
@@ -20,6 +22,8 @@
 4. In Terminal type: ```python idep_dloc_mapping.py```
 
 5. Input absolute path to the "solr-output.csv" when prompted
+
+	* You can drag the "solr-output.csv" file into your Terminal window to provide the absolute path
 
 	* A new CSV file named "idep_dloc_ColName.csv" will be exported to your current working directory
 
